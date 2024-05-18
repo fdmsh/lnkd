@@ -4,15 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LinkedIn Posts</title>
-  <style>
-    /* Можно определить стиль прямо здесь, если требуется */
-    .style5 {
-      /* Пример: */
-      font-size: 16px;
-      font-family: Lato, sans-serif;
-      color: #333;
-    }
-  </style>
 </head>
 <body>
   <div id="rss-feed" class="style5"></div> <!-- Добавляем класс style5 сюда -->
@@ -23,18 +14,23 @@
       .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
       .then(data => {
         const items = data.querySelectorAll("item");
-        let html = "<ul class='style5'>";  <!-- Добавляем класс style5 сюда -->
+        let html = "<ul>";
         items.forEach(el => {
           const title = el.querySelector("title").textContent;
           const link = el.querySelector("link").textContent;
-          const description = el.querySelector("description").textContent; // Получаем текст поста
+          const description = el.querySelector("description").textContent;
           html += `<li class="style5">
                     <a href="${link}" class="style5">${title}</a>
-                    <p class="style5">${description}</p> <!-- Добавляем текст поста -->
+                    <p class="style5">${description}</p>
                    </li>`;
         });
         html += "</ul>";
         document.getElementById('rss-feed').innerHTML = html;
+
+        // Дополнительно добавляем классы после создания элементов
+        document.querySelectorAll('#rss-feed li').forEach(el => el.classList.add('style5'));
+        document.querySelectorAll('#rss-feed a').forEach(el => el.classList.add('style5'));
+        document.querySelectorAll('#rss-feed p').forEach(el => el.classList.add('style5'));
       });
   </script>
 </body>
