@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Posts</title>
+</head>
+<body>
+  <div id="rss-feed"></div>
+
+  <script>
+    fetch('https://rss.app/feeds/PDJmI2REBpzMrtNH.xml')
+      .then(response => response.text())
+      .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+      .then(data => {
+        const items = data.querySelectorAll("item");
+        let html = "<ul>";
+        items.forEach(el => {
+          const title = el.querySelector("title").textContent;
+          const link = el.querySelector("link").textContent;
+          html += `<li><a href="${link}">${title}</a></li>`;
+        });
+        html += "</ul>";
+        document.getElementById('rss-feed').innerHTML = html;
+      });
+  </script>
+</body>
+</html>
