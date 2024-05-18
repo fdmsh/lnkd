@@ -18,27 +18,11 @@
         items.forEach(el => {
           const title = el.querySelector("title").textContent;
           const link = el.querySelector("link").textContent;
-          const description = el.querySelector("description").textContent;
-
-          // Попробуем получить изображение из различных тегов
-          let imageUrl = "";
-          const enclosure = el.querySelector("enclosure");
-          if (enclosure && enclosure.getAttribute("type").startsWith("image/")) {
-            imageUrl = enclosure.getAttribute("url");
-          } else {
-            const mediaContent = el.querySelector("media\\:content, content");
-            if (mediaContent && mediaContent.getAttribute("type").startsWith("image/")) {
-              imageUrl = mediaContent.getAttribute("url");
-            }
-          }
-
+          const description = el.querySelector("description").textContent; // Получаем текст поста
           html += `<li>
                     <a href="${link}">${title}</a>
-                    <p>${description}</p>`;
-          if (imageUrl) {
-            html += `<img src="${imageUrl}" alt="${title}" style="max-width:100%;">`;
-          }
-          html += `</li>`;
+                    <p>${description}</p> <!-- Добавляем текст поста -->
+                   </li>`;
         });
         html += "</ul>";
         document.getElementById('rss-feed').innerHTML = html;
